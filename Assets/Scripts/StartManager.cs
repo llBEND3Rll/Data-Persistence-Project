@@ -6,8 +6,8 @@ using UnityEngine;
 public class StartManager : MonoBehaviour
 {
     public static StartManager instance;
-    //public string playerName;
-    public int playerScoreInstTest = 111;
+    public bool topScore;
+    public int newScore;
 
     public Dictionary<int, PlayerScore> highscoreTable;
 
@@ -38,17 +38,44 @@ public class StartManager : MonoBehaviour
 
     private void InitHighscoreTable()
     {
-        PlayerScore ps = new PlayerScore();
-        ps.Name = "han";
-        ps.Score = 1;
+        PlayerScore[] psFill = new PlayerScore[5];
+        psFill[0] = new PlayerScore();
+        psFill[1] = new PlayerScore();
+        psFill[2] = new PlayerScore();
+        psFill[3] = new PlayerScore();
+        psFill[4] = new PlayerScore();
         highscoreTable = new Dictionary<int, PlayerScore>();
-        highscoreTable.Add(1, ps);
-        highscoreTable.Add(2, ps);
-        highscoreTable.Add(3, ps);
-        highscoreTable.Add(4, ps);
-        highscoreTable.Add(5, ps);
+        highscoreTable.Add(1, psFill[0]);
+        highscoreTable.Add(2, psFill[1]);
+        highscoreTable.Add(3, psFill[2]);
+        highscoreTable.Add(4, psFill[3]);
+        highscoreTable.Add(5, psFill[4]);
+        //for (int i = 0; i < 6; i++)
+        //{
+        //    psFill[i] = new PlayerScore();
+        //    highscoreTable.Add(i, psFill[i]);
+        //}
     }
 
+    public bool CheckHighsoreList(int score)
+    {
+        PlayerScore ps;
+        highscoreTable.TryGetValue(5, out ps);
+        if(ps.Score < score)
+        {
+            newScore = score;
+            topScore = true;
+            return true;
+        }
+        
+        return false;
+    }
+
+    private void InputPlayerName()
+    {
+        // Eingabe des Spieler Name
+        Debug.Log("Top 5 Ergebniss");
+    }
 }
 
 

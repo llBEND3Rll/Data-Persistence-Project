@@ -16,6 +16,17 @@ public class HighscoreTable
 
 public class PlayerScore
 {
+    public PlayerScore()
+    {
+        Name = "";
+        Score = 0;
+    }
+    public PlayerScore(string name, int score)
+    {
+        Name = name;
+        Score = score; 
+    }
+
     private string _Name;
     public string Name{ get => _Name; set => _Name = value; }
 
