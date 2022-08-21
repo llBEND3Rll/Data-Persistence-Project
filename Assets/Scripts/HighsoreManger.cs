@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using TMPro;
 
 public class HighsoreManger : MonoBehaviour
@@ -184,5 +185,12 @@ public class HighsoreManger : MonoBehaviour
             StartManager.instance.highscoreTable[i + 1].Name = newData[i].Name;
             StartManager.instance.highscoreTable[i + 1].Score  = newData[i].Score;
         }
+    }
+
+    public void SaveHighsore()
+    {
+        Debug.Log("vor dem Speichern");
+        StartManager.instance.SaveHighscore();
+        Debug.Log("nach dem Speichern");
     }
 }

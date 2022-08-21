@@ -50,11 +50,6 @@ public class StartManager : MonoBehaviour
         highscoreTable.Add(3, psFill[2]);
         highscoreTable.Add(4, psFill[3]);
         highscoreTable.Add(5, psFill[4]);
-        //for (int i = 0; i < 6; i++)
-        //{
-        //    psFill[i] = new PlayerScore();
-        //    highscoreTable.Add(i, psFill[i]);
-        //}
     }
 
     public bool CheckHighsoreList(int score)
@@ -75,6 +70,65 @@ public class StartManager : MonoBehaviour
     {
         // Eingabe des Spieler Name
         Debug.Log("Top 5 Ergebniss");
+    }
+
+    public void SaveHighscore()
+    {
+        SaveData sd = new SaveData();
+        highscoreTable.TryGetValue(1, out sd.ps1);
+        highscoreTable.TryGetValue(2, out sd.ps2);
+        highscoreTable.TryGetValue(3, out sd.ps3);
+        highscoreTable.TryGetValue(4, out sd.ps4);
+        highscoreTable.TryGetValue(5, out sd.ps5);
+
+        SaveData2 sd2 = new SaveData2();
+        sd2.name[1] = sd.ps1.Name;
+        sd2.score[1] = sd.ps1.Score;
+        sd2.name[2] = sd.ps2.Name;
+        sd2.score[2] = sd.ps2.Score;
+        sd2.name[3] = sd.ps3.Name;
+        sd2.score[3] = sd.ps3.Score;
+        sd2.name[4] = sd.ps4.Name;
+        sd2.score[4] = sd.ps4.Score;
+        sd2.name[5] = sd.ps5.Name;
+        sd2.score[5] = sd.ps5.Score;
+
+        string json = JsonUtility.ToJson(sd2);
+ 
+        File.WriteAllText(Application.persistentDataPath + "/hs.json", json);
+    }
+
+    public void LoadSaveHighscore()
+    {
+        string path = Application.persistentDataPath + "/hs.json";
+        if (File.Exists(path))
+        {
+            string json = File.ReadAllText(path);
+            SaveData2 sd2 = JsonUtility.FromJson<SaveData2>(json);
+            SaveData sd = new SaveData();
+            sd.ps1.Name = sd2.name[1];
+            sd.ps1.Score = sd2.score[1];
+            sd.ps2.Name = sd2.name[2];
+            sd.ps2.Score = sd2.score[2];
+            sd.ps3.Name = sd2.name[3];
+            sd.ps3.Score = sd2.score[3];
+            sd.ps4.Name = sd2.name[4];
+            sd.ps4.Score = sd2.score[4];
+            sd.ps5.Name = sd2.name[5];
+            sd.ps5.Score = sd2.score[5];
+
+            highscoreTable.Remove(1);            
+            highscoreTable.Remove(2);
+            highscoreTable.Remove(3);
+            highscoreTable.Remove(4);
+            highscoreTable.Remove(5);
+
+            highscoreTable.Add(1, sd.ps1);
+            highscoreTable.Add(2, sd.ps2);
+            highscoreTable.Add(3, sd.ps3);
+            highscoreTable.Add(4, sd.ps4);
+            highscoreTable.Add(5, sd.ps5);
+        }
     }
 }
 

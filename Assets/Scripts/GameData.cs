@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,13 +8,14 @@ public class GameData : MonoBehaviour
     
 }
 
-[System.Serializable]
+[Serializable]
 public class HighscoreTable
 {
     public Dictionary<int, PlayerScore> Highscore = new Dictionary<int, PlayerScore>();
     
 }
 
+[Serializable]
 public class PlayerScore
 {
     public PlayerScore()
@@ -34,6 +36,23 @@ public class PlayerScore
     public int Score { get => _Score; set => _Score = value; }
 }
 
+[Serializable]
+public class SaveData
+{
+
+    public PlayerScore ps1 = new PlayerScore();
+    public PlayerScore ps2 = new PlayerScore();
+    public PlayerScore ps3 = new PlayerScore();
+    public PlayerScore ps4 = new PlayerScore();
+    public PlayerScore ps5 = new PlayerScore();
+}
+
+[Serializable]
+public class SaveData2
+{
+    public string[] name = new string[6];
+    public int[] score = new int[6];
+}
 public enum SceneList
 {
     Start,
@@ -41,9 +60,4 @@ public enum SceneList
     Main
 }
 
-public struct PlayerScoreTest
-{
-    string name;
-    int score;
-}
 
